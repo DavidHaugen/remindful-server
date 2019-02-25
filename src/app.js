@@ -14,10 +14,8 @@ const morganOption = (NODE_ENV === 'production')
   : 'common';
 
 app.use(morgan(morganOption));
+app.use(helmet());
 app.use(cors());
-app.use(helmet());
-
-app.use(helmet());
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');
@@ -33,7 +31,5 @@ app.use(function errorHandler(error, req, res, next) {
   }
   res.status(500).json(response);
 });
-
-module.exports = app;
 
 module.exports = app;
