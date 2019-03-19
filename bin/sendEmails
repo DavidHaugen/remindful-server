@@ -2,7 +2,7 @@
 
 const pg = require('pg');
 const knex = require('knex');
-const { DB_URL } = require ('./src/config')
+const { DB_URL } = require ('../src/config')
 require('dotenv').config();
 
 const db = knex({
@@ -62,7 +62,7 @@ if(d.getDate() === 19){
     service: 'gmail',
     auth: {
       user: 'theremindfulapp@gmail.com',
-      pass: 'Get Reminded!'
+      pass: 'process.env.NODEMAILER_PASS'
     }
   });
   
