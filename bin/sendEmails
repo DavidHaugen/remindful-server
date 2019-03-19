@@ -62,7 +62,7 @@ if(d.getDate() === 19){
     service: 'gmail',
     auth: {
       user: 'theremindfulapp@gmail.com',
-      pass: 'process.env.NODEMAILER_PASS'
+      pass: 'Get Reminded!'
     }
   });
   
