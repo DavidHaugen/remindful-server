@@ -21,7 +21,7 @@ const getUserEmail = (db) => {
     .then(results => results.map((result) => result.email_address))
     .then(emails => {
       sendgrid.send({
-        to: emails,
+        to: 'haugen.dj@gmail.com',
         from: 'theremindfulapp@email.com',
         subject: 'Time to check on your goals',
         text: 'This is a test'
