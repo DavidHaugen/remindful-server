@@ -1,0 +1,114 @@
+#!/usr/bin/env node
+
+const pg = require('pg');
+const knex = require('knex');
+const { DB_URL } = require ('./src/config')
+require('dotenv').config();
+
+const db = knex({
+  client: 'pg',
+  connection: DB_URL
+})
+
+const sendgrid  = require('sendgrid')(
+  process.env.SENDGRID_USERNAME,
+  process.env.SENDGRID_PASSWORD
+);
+
+// const getUserEmail = (db) => {
+//     return db
+//     .from('remindful_users')
+//     .select('email_address')
+//     .then(results => results.map((result) => result.email_address))
+//     .then(emails => {
+//       sendgrid.send({
+//         to: 'haugen.dj@gmail.com',
+//         from: 'theremindfulapp@email.com',
+//         subject: 'Time to check on your goals',
+//         text: 'This is a test'
+//       }, function(err, json) {
+//         if (err) { 
+//           console.error(err); 
+//         }   
+//     })
+//     })
+//     .catch((e) => console.log(e))
+//   }
+
+// getUserEmail(db)
+//   .then(() => db.destroy());
+
+
+
+// const sgMail = require('@sendgrid/mail');
+// sgMail.setApiKey('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');
+// const msg = {
+//   to: 'theremindfulapp@gmail.com',
+//   from: 'theremindfulapp@remindful.com',
+//   subject: 'SendGrid test',
+//   text: 'Here is a sample email for Remindful',
+//   html: '<strong>Here is a sample email for Remindful</strong>',
+// };
+// sgMail.send(msg);
+
+const d = new Date();
+
+if(d.getDate() === 19){
+
+  var nodemailer = require('nodemailer');
+  // require('dotenv');
+  
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASS
+    }
+  });
+  
+  // can either bcc or can loop over the array of recipients and include their email in the 'to' field. Probably loop
+  var mailOptions = {
+    from: '"The Remindful App" <theremindfulapp@gmail.com>',
+    to: 'theremindfulapp@gmail.com',
+    // Should dynamically create the subject and text to address the recipient by name
+    subject: 'How\'s progress?',
+    text: 'Don\'t forget to take a look at your Remindful list!'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+
+}
+
+// var nodemailer = require('nodemailer');
+// // require('dotenv');
+
+// var transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: process.env.NODEMAILER_USER,
+//     pass: process.env.NODEMAILER_PASS
+//   }
+// });
+
+// // can either bcc or can loop over the array of recipients and include their email in the 'to' field. Probably loop
+// var mailOptions = {
+//   from: '"The Remindful App" <theremindfulapp@gmail.com>',
+//   to: 'theremindfulapp@gmail.com',
+//   // Should dynamically create the subject and text to address the recipient by name
+//   subject: 'How\'s progress?',
+//   text: 'Don\'t forget to take a look at your Remindful list!'
+// };
+
+// transporter.sendMail(mailOptions, function(error, info){
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log('Email sent: ' + info.response);
+//   }
+// });
