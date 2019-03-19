@@ -8,7 +8,7 @@ goalsRouter
   .route('/')
     .all(requireAuth)
     .get((req, res, next) => {
-      GoalsService.getAllGoals(req.app.get('db'))
+      GoalsService.getAllGoals(req.app.get('db'), req.user.email_address)
       .then(goals => {
         res.json((goals))
       })
