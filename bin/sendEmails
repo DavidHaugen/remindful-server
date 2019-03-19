@@ -54,32 +54,32 @@ const sendgrid  = require('sendgrid')(
 
 
 
-// var nodemailer = require('nodemailer');
-// // require('dotenv');
+var nodemailer = require('nodemailer');
+// require('dotenv');
 
-// var transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     // user: process.env.USER,
-//     // pass: process.env.EMAIL_PASS
-//     user: 'theremindfulapp@gmail.com',
-//     pass: 'Get Reminded!'
-//   }
-// });
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    // user: process.env.USER,
+    // pass: process.env.EMAIL_PASS
+    user: 'theremindfulapp@gmail.com',
+    pass: 'Get Reminded!'
+  }
+});
 
-// // can either bcc or can loop over the array of recipients and include their email in the 'to' field. Probably loop
-// var mailOptions = {
-//   from: '"The Remindful App" <theremindfulapp@gmail.com>',
-//   to: 'theremindfulapp@gmail.com',
-//   // Should dynamically create the subject and text to address the recipient by name
-//   subject: 'How\'s progress?',
-//   text: 'Don\'t forget to take a look at your Remindful list!'
-// };
+// can either bcc or can loop over the array of recipients and include their email in the 'to' field. Probably loop
+var mailOptions = {
+  from: '"The Remindful App" <theremindfulapp@gmail.com>',
+  to: 'theremindfulapp@gmail.com',
+  // Should dynamically create the subject and text to address the recipient by name
+  subject: 'How\'s progress?',
+  text: 'Don\'t forget to take a look at your Remindful list!'
+};
 
-// transporter.sendMail(mailOptions, function(error, info){
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log('Email sent: ' + info.response);
-//   }
-// });
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
