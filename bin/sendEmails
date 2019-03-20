@@ -23,7 +23,7 @@ const { DB_URL } = require ('../src/config')
 
 const d = new Date();
 
-if(d.getDate() === 20){
+if(d.getDate() === 21){
 
   var nodemailer = require('nodemailer');
   
