@@ -4,6 +4,8 @@ const goalsRouter = express.Router()
 const jsonBodyParser = express.json()
 const { requireAuth } = require('../middleware/jwt-auth')
 
+const AuthService = require('../auth/auth-service')
+
 goalsRouter
   .route('/')
     .all(requireAuth)

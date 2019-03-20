@@ -40,7 +40,7 @@ if(d.getDate() === 20){
     from: '"The Remindful App" <theremindfulapp@gmail.com>',
     to: 'theremindfulapp@gmail.com',
     // Should dynamically create the subject and text to address the recipient by name
-    subject: 'How\'s progress?',
+    subject: 'How\'s progress?',  
     text: 'Don\'t forget to take a look at your Remindful list!'
   };
   

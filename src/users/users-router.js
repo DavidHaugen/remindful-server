@@ -18,7 +18,7 @@ usersRouter
     const passwordError = UsersService.validatePassword(password);
     if (passwordError)
       return res.status(400).json({ error: passwordError });
-     
+
     UsersService.hasUserWithEmail(
       req.app.get('db'),
       email_address
