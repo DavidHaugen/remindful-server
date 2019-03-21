@@ -9,6 +9,7 @@ const usersRouter = require('./users/users-router')
 const goalsRouter = require('./goals/goals-router')
 const authRouter = require('./auth/auth-router')
 const addGoalRouter = require('./add-goal/add-goal-router')
+const reflectionRouter = require('./reflections/reflections-router')
 
 
 const app = express();
@@ -26,6 +27,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/add-goal', addGoalRouter)
+app.use('/api/reflections', reflectionRouter)
 
 app.use(function errorHandler(error, req, res, next) {
   let response;

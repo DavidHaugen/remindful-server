@@ -10,14 +10,23 @@ goalsRouter
   .route('/')
     .all(requireAuth)
     .get((req, res, next) => {
-      GoalsService.getAllGoals(req.app.get('db'), req.user.email_address)
+      return GoalsService.getAllGoals(req.app.get('db'), req.user.email_address)
       .then(goals => {
+        res.status(200)
         res.json((goals))
       })
       .catch(next)
     })
     .post(jsonBodyParser, (req, res, next) => {
       const { name } = req.body
+    })
+    .delete(jsonBodyParser, (req,res,next) => {
+      return GoalsService.deleteGoal(req.app.get('db'), req.body.goalId)
+        .then(() => {
+          res.status(200)
+          res.end()
+        })
+        .catch(next)
     })
 
   module.exports = goalsRouter
