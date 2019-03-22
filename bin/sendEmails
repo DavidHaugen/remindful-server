@@ -20,7 +20,7 @@ const getUserEmail = (db) => {
 const sendEmails = (emailAddress, firstName) => {
   const d = new Date();
 
-  if(d.getDate() === 1){
+  if(d.getDate() === 22){
   
     var nodemailer = require('nodemailer');
     
