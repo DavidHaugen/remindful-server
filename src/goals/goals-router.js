@@ -13,7 +13,7 @@ goalsRouter
       return GoalsService.getAllGoals(req.app.get('db'), req.user.email_address)
       .then(goals => {
         res.status(200)
-        res.json((goals))
+        res.json(GoalsService.serializeGoals(goals))
       })
       .catch(next)
     })
@@ -25,6 +25,15 @@ goalsRouter
         .then(() => {
           res.status(200)
           res.end()
+        })
+        .catch(next)
+    })
+    .patch(jsonBodyParser, (req, res, next) => {
+      console.log(req.body)
+      return GoalsService.updateGoal(req.app.get('db'), req.body)
+        .then((goal) => {
+          res.status(200)
+          res.json(goal)
         })
         .catch(next)
     })

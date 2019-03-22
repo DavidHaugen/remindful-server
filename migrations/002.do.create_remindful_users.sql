@@ -10,5 +10,4 @@ CREATE TABLE remindful_users (
 
 ALTER TABLE remindful_goals
   ADD COLUMN
-    user_id INTEGER REFERENCES remindful_users(id) ON DELETE CASCADE
-    ON DELETE SET NULL;
+    user_id INTEGER REFERENCES remindful_users(id) ON DELETE CASCADE;

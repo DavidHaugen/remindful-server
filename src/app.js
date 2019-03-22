@@ -10,8 +10,6 @@ const goalsRouter = require('./goals/goals-router')
 const authRouter = require('./auth/auth-router')
 const addGoalRouter = require('./add-goal/add-goal-router')
 const reflectionRouter = require('./reflections/reflections-router')
-
-
 const app = express();
 
 const morganOption = (NODE_ENV === 'production')

@@ -44,6 +44,12 @@ const UsersService = {
       email_address: xss(user.email_address),
       date_created: user.date_created
     };
+  },
+  deleteUser(db, email) {
+    return db
+      .from('remindful_users')
+      .where('email_address', email)
+      .del()
   }
 };
 

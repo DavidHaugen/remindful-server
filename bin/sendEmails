@@ -3,57 +3,79 @@
 const knex = require('knex');
 const { DB_URL } = require ('../src/config')
 
-// const db = knex({
-//   client: 'pg',
-//   connection: DB_URL
-// })
+const db = knex({
+  client: 'pg',
+  connection: DB_URL
+})
 
-// const getUserEmail = (db) => {
-//     return db
-//     .from('remindful_users')
-//     .select('email_address')
-//     .then(results => results.map((result) => result.email_address))
-//     .then(emails => console.log(emails))
-//     .catch((e) => console.log(e))
-//   }
+const getUserEmail = (db) => {
+    return db
+    .from('remindful_users')
+    .select('*')
+    // .then(results => results.map((result) => result.email_address))
+    .then(results => results.forEach((user) => sendEmails(user.email_address, user.first_name)))
 
-// getUserEmail(db)
-//   .then(() => db.destroy());
+    // .then(emailsList => emailsList.forEach((email) => sendEmails(email)))
+    .catch((e) => console.log(e))
 
+    // .from('remindful_users')
+    // .select('email_address')
+    // .then(results => results.map((result) => result.email_address))
+    // .then(emailsList => emailsList.forEach((email) => sendEmails(email)))
+    // .catch((e) => console.log(e))
+  }
 
-const d = new Date();
+const sendEmails = (emailAddress, firstName) => {
+  const d = new Date();
 
-if(d.getDate() === 21){
-
-  var nodemailer = require('nodemailer');
+  if(d.getDate() === 1){
   
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'theremindfulapp@gmail.com',
-      pass: 'Get Reminded!'
-    }
-  });
-  
-  // can either bcc or can loop over the array of recipients and include their email in the 'to' field. Probably loop
-  var mailOptions = {
-    from: '"The Remindful App" <theremindfulapp@gmail.com>',
-    to: 'theremindfulapp@gmail.com',
-    // Should dynamically create the subject and text to address the recipient by name
-    subject: 'How\'s progress?',  
-    text: 'Don\'t forget to take a look at your Remindful list!'
-  };
-  
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
+    var nodemailer = require('nodemailer');
+    
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'theremindfulapp@gmail.com',
+        pass: 'Get Reminded!'
+      }
+    });
+    
+    var mailOptions = {
+      from: '"The Remindful App" <theremindfulapp@gmail.com>',
+      to: emailAddress,
+      subject: 'How\'s progress?',  
+      html: `<p>Hi ${firstName},</p> 
+      
+<p>Reflection time! Don't forget to take a look at your goals on Remindful. Try to spend even a few minutes thinking or writing about your progress this month. Keep it up, you're doing great!</p>
+
+<p>Check out your goals here: <a href='remindful-app.now.sh'>Remindful</a></p>
+
+
+<p>Warm regards,</p>
+<p>David at Remindful</p>
+
+
+  <span style='color:grey'>--If you need to unsubscribe and delete your account, please visit your Remindful acount page. If you're having any other issues with your account, please reply to this message and let us know. Thanks!</span>`
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
 }
 
+getUserEmail(db)
+  .then(() => db.destroy());
 
+
+
+
+  
+// For using SendGrid:
 
 // const sendgrid  = require('sendgrid')(
 //   process.env.SENDGRID_USERNAME,

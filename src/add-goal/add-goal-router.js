@@ -20,7 +20,7 @@ addGoalRouter
       return addGoalService.insertGoal(req.app.get('db'), email_address, name)
       .then(goal => {
         res.status(201)
-        res.json(goal)
+        res.json(addGoalService.serializeGoal(goal))
       })
       .catch(next)
     })

@@ -11,6 +11,16 @@ const addGoalService = {
             .returning('*')
             .then(([goal]) => goal);
         })
+  },
+
+  serializeGoal(goal){
+    return {
+      id: goal.id,
+      name: xss(goal.name),
+      complete: goal.complete,
+      date_created: goal.date_created,
+      user_id: goal.user_id
+    }
   }
 }
 
