@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+require('dotenv').config();
 
 const knex = require('knex');
 const { DB_URL } = require ('../src/config')
@@ -12,17 +13,8 @@ const getUserEmail = (db) => {
     return db
     .from('remindful_users')
     .select('*')
-    // .then(results => results.map((result) => result.email_address))
     .then(results => results.forEach((user) => sendEmails(user.email_address, user.first_name)))
-
-    // .then(emailsList => emailsList.forEach((email) => sendEmails(email)))
     .catch((e) => console.log(e))
-
-    // .from('remindful_users')
-    // .select('email_address')
-    // .then(results => results.map((result) => result.email_address))
-    // .then(emailsList => emailsList.forEach((email) => sendEmails(email)))
-    // .catch((e) => console.log(e))
   }
 
 const sendEmails = (emailAddress, firstName) => {
@@ -35,8 +27,8 @@ const sendEmails = (emailAddress, firstName) => {
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'theremindfulapp@gmail.com',
-        pass: 'Get Reminded!'
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASS
       }
     });
     
