@@ -26,4 +26,4 @@ const addGoalService = {
 
 module.exports = addGoalService
 // AuthService.getUserWithEmail(req.app.get('db'),req.user.email_address)
-// .then(res => console.log(res.first_name));
+// .then(res => (res.first_name));

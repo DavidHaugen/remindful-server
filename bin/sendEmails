@@ -9,6 +9,8 @@ const db = knex({
   connection: DB_URL
 })
 
+// The following code sends an email to users. It is executed daily by Heroku Scheduler, but emails are only sent on the first of the month
+
 const getUserEmail = (db) => {
     return db
     .from('remindful_users')
@@ -64,9 +66,19 @@ getUserEmail(db)
   .then(() => db.destroy());
 
 
+// The following code will wipe the data for the test login. This code is executed daily with Heroku Scheduler
 
+const clearTestUser = () => {
+    return db
+      .from('remindful_goals')
+      .join('remindful_users', 'remindful_goals.user_id', '=', 'remindful_users.id')
+      .select('remindful_goals.name','remindful_goals.complete', 'remindful_goals.id')
+      .where('remindful_users.email_address', '=', 'remindfulTest@gmail.com')
+      .del()
+}
 
-  
+clearTestUser();
+
 // For using SendGrid:
 
 // const sendgrid  = require('sendgrid')(

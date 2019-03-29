@@ -35,7 +35,6 @@ reflectionRouter
   .route('/:goalId')
     .all(requireAuth)
     .get(jsonBodyParser, (req, res, next) => {
-      console.log(req.params.goalId)        
         return reflectionService.getReflections(req.app.get('db'), Number(req.params.goalId))
           .then( reflections => {
             res.status(200)

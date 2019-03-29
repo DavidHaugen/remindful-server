@@ -21,7 +21,7 @@ function requireAuth(req, res, next) {
     return res.status(401).json({ error: 'Unauthorized request. Please provide user name and password' });
   }
 
-  req.app.get('db')('thingful_users')
+  req.app.get('db')('remindful_users')
     .where({ user_name: tokenUserName })
     .first()
     .then(user => {

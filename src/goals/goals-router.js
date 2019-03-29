@@ -29,7 +29,6 @@ goalsRouter
         .catch(next)
     })
     .patch(jsonBodyParser, (req, res, next) => {
-      console.log(req.body)
       return GoalsService.updateGoal(req.app.get('db'), req.body)
         .then((goal) => {
           res.status(200)

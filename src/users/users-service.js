@@ -46,10 +46,14 @@ const UsersService = {
     };
   },
   deleteUser(db, email) {
-    return db
-      .from('remindful_users')
-      .where('email_address', email)
-      .del()
+    if(email === 'remindfulTest@gmail.com'){
+      break;
+    } else {
+      return db
+        .from('remindful_users')
+        .where('email_address', email)
+        .del()
+    }
   }
 };
 
