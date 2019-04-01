@@ -47,12 +47,12 @@ const UsersService = {
   },
   deleteUser(db, email) {
     if(email === 'remindfulTest@gmail.com'){
-      break;
+      return null;
     } else {
       return db
         .from('remindful_users')
         .where('email_address', email)
-        .del()
+        .del();
     }
   }
 };
