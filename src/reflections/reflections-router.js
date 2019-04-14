@@ -16,7 +16,6 @@ reflectionRouter
         .json({
           error: 'Missing reflection in request body'
         });
-
     return reflectionService.insertReflection(req.app.get('db'), reflection, goalId)
       .then( reflection => {
         res.status(201);

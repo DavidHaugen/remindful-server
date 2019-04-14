@@ -18,7 +18,11 @@ addGoalRouter
       return res.status(400).json({
         error: 'Missing name in request body'
       });
-
+    if(name.length > 55){
+      return res.status(400).json({
+        error: 'Goal names cannot exceed 55 characters'
+      });
+    }
     return addGoalService.insertGoal(req.app.get('db'), email_address, name)
       .then(goal => {
         res.status(201);
