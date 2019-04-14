@@ -30,69 +30,69 @@ describe('Goals Endpoints', function() {
     context('When no bearer token present', () => {
       it('responds with 401 unauthorized', () => {
         return supertest(app)
-            .post('/api/add-goal')
-            .expect(401);
-      })
+          .post('/api/add-goal')
+          .expect(401);
+      });
     });
     context('When given invalid bearer token', () => {
       it('responds with 401 unauthorized', () => {
-      return supertest(app)
-      .post('/api/add-goal')
-      .set('Authorization', helpers.makeAuthHeader(testUsers[0], 'badToken'))
-      .expect(401)
-      })
-    })
-  })
-
-    describe('GET /api/my-goals', () => {
-      
-      context('When no bearer token present', () => {
-        it('responds with 401 unauthorized', () => {
-          return supertest(app)
-            .get('/api/my-goals')
-            .expect(401);
-        });
-      });
-      context('When given invalid bearer token', () => {
-        it('responds with 401 unauthorized', () => {
         return supertest(app)
-        .post('/api/my-goals')
-        .set('Authorization', helpers.makeAuthHeader(testUsers[0], 'badToken'))
-        .expect(401)
-        })
-      })
-      context('With correct bearer token and no goals present', () => {
-        before('insert goals', () =>
-          helpers.seedGoalsTables(
+          .post('/api/add-goal')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0], 'badToken'))
+          .expect(401);
+      });
+    });
+  });
+
+  describe('GET /api/my-goals', () => {
+      
+    context('When no bearer token present', () => {
+      it('responds with 401 unauthorized', () => {
+        return supertest(app)
+          .get('/api/my-goals')
+          .expect(401);
+      });
+    });
+    context('When given invalid bearer token', () => {
+      it('responds with 401 unauthorized', () => {
+        return supertest(app)
+          .post('/api/my-goals')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0], 'badToken'))
+          .expect(401);
+      });
+    });
+    context('With correct bearer token and no goals present', () => {
+      before('insert goals', () =>
+        helpers.seedGoalsTables(
           db,
           testUsers
-          )
-        );
-        it('responds with 200 and empty array', () => {
-          return supertest(app)
+        )
+      );
+      it('responds with 200 and empty array', () => {
+        return supertest(app)
           .get('/api/my-goals')
           .set('Authorization', helpers.makeAuthHeader(testUsers[0], process.env.JWT_SECRET))
-          .expect(200, [])
-        })
-      })
-      context('With correct bearer token and goals present', () => {
-        before('insert goals', () =>
-          helpers.seedGoalsTables(
-            db,
-            testUsers,
-            testGoals
-            )
-        );
-        it('responds with 200 and an array of goals', () => {
-          return supertest(app)
+          .expect(200, []);
+      });
+    });
+    context('With correct bearer token and goals present', () => {
+      before('insert goals', () =>
+        helpers.seedGoalsTables(
+          db,
+          testUsers,
+          testGoals
+        )
+      );
+      it('responds with 200 and an array of goals', () => {
+        return supertest(app)
           .get('/api/my-goals')
           .set('Authorization', helpers.makeAuthHeader(testUsers[0], process.env.JWT_SECRET))
-          .expect(200, [{"id": 1, "name": "goal one", "complete": false}, {
-            "name": 'goal two',
-            "complete": false,
-            "id": 2
-          }])
-        });
-      })
-    })
-})
+          .expect(200, [{'id': 1, 'name': 'goal one', 'complete': false}, {
+            'name': 'goal two',
+            'complete': false,
+            'id': 2
+          }]);
+      });
+    });
+  });
+});

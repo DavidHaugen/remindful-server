@@ -1,3 +1,5 @@
+'use strict';
+
 const xss = require('xss');
 
 const reflectionService = {
@@ -6,7 +8,7 @@ const reflectionService = {
       .insert({goal_id: goalId, content: reflection})
       .into('remindful_reflections')
       .returning('*')
-      .then(([reflection]) => reflection)
+      .then(([reflection]) => reflection);
   },
 
   getReflections(db, goalId){
@@ -14,19 +16,19 @@ const reflectionService = {
       .from('remindful_reflections')
       .join('remindful_goals', 'remindful_goals.id', '=', 'remindful_reflections.goal_id')
       .select('remindful_reflections.content', 'remindful_reflections.date_created', 'remindful_reflections.id')
-      .where('remindful_goals.id', '=', goalId)
+      .where('remindful_goals.id', '=', goalId);
   },
 
   deleteReflection(db, id){
     return db
       .from('remindful_reflections')
       .where('id', id)
-      .del()
-    },
+      .del();
+  },
 
-    serializeReflectionsList(reflections) {
-      return reflections.map((reflection) => this.serializeReflection(reflection))
-    },
+  serializeReflectionsList(reflections) {
+    return reflections.map((reflection) => this.serializeReflection(reflection));
+  },
 
   serializeReflection(reflection){
     return {
@@ -35,8 +37,8 @@ const reflectionService = {
       date_created: reflection.date_created,
       date_modified: reflection.date_modified,
       goal_id: reflection.goal_id
-    }
+    };
   }
-}
+};
 
-module.exports = reflectionService
+module.exports = reflectionService;

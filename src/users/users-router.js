@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
-const { requireAuth } = require('../middleware/jwt-auth')
+const { requireAuth } = require('../middleware/jwt-auth');
 const UsersService = require('./users-service');
 
 usersRouter
@@ -50,19 +50,19 @@ usersRouter
           });
       })
       .catch(next);
-  })
+  });
 
 usersRouter
   .route('/')
   .all(requireAuth)
   .delete((req, res, next) => {
-    const { email_address } = req.user 
+    const { email_address } = req.user; 
     return UsersService.deleteUser(req.app.get('db'), email_address)
       .then(() => {
-        res.status(200)
-        res.end()
+        res.status(200);
+        res.end();
       })
-      .catch(next)
-  })
+      .catch(next);
+  });
 
 module.exports = usersRouter;

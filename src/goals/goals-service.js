@@ -1,20 +1,22 @@
+'use strict';
+
 const xss = require('xss');
 
 const GoalsService = {
   getAllGoals(db, email) {
     return db
-    .from('remindful_goals')
-    .join('remindful_users', 'remindful_goals.user_id', '=', 'remindful_users.id')
-    .select('remindful_goals.name','remindful_goals.complete', 'remindful_goals.id')
-    .where('remindful_users.email_address', '=', email)
+      .from('remindful_goals')
+      .join('remindful_users', 'remindful_goals.user_id', '=', 'remindful_users.id')
+      .select('remindful_goals.name','remindful_goals.complete', 'remindful_goals.id')
+      .where('remindful_users.email_address', '=', email);
   },
 
   deleteGoal(db, id){
     return db
       .from('remindful_goals')
       .where('id', id)
-      .del()
-    },
+      .del();
+  },
   
   updateGoal(db, goal) {
     return db
@@ -23,11 +25,11 @@ const GoalsService = {
       .update({
         complete: goal.complete
       })
-      .returning('*')
+      .returning('*');
   },
   
   serializeGoals(goals) {
-    return goals.map((goal) => this.serializeGoal(goal))
+    return goals.map((goal) => this.serializeGoal(goal));
   },
 
   serializeGoal(goal) {
@@ -37,8 +39,8 @@ const GoalsService = {
       complete: goal.complete,
       date_created: goal.date_created,
       user_id: goal.user_id
-    }
+    };
   }
-}
+};
 
-module.exports = GoalsService
+module.exports = GoalsService;
